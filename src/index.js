@@ -3,6 +3,7 @@ const cors = require("cors");
 
 const { v4: uuidv4 } = require("uuid");
 const { use } = require("express/lib/application");
+const res = require("express/lib/response");
 
 const app = express();
 
@@ -44,7 +45,9 @@ app.post("/users", (request, response) => {
 });
 
 app.get("/todos", checksExistsUserAccount, (request, response) => {
-  // Complete aqui
+  const { user } = request;
+
+  return response.json(user.todos);
 });
 
 app.post("/todos", checksExistsUserAccount, (request, response) => {
